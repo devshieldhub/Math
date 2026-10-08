@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رياضياتي - منصة التعليم الذكي للرياضيات</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Tailwind Configuration for Theme Customization
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0284c7',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        accent: {
+                            500: '#10b981',
+                            600: '#059669',
+                        },
+                        darkBg: '#0f172a',
+                        darkCard: '#1e293b',
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Animations & Styles */
+        body {
+            font-family: 'Cairo', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .math-bg-pattern {
+            background-image: radial-gradient(rgba(2, 132, 199, 0.15) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .dark .math-bg-pattern {
+            background-image: radial-gradient(rgba(56, 189, 248, 0.1) 1px, transparent 1px);
+        }
+        .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(2, 132, 199, 0.3);
+        }
+        .dark .glow-effect {
+            box-shadow: 0 0 25px -5px rgba(56, 189, 248, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-darkBg dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-white/80 dark:bg-darkBg/80 border-b border-slate-200 dark:border-slate-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-brand-600 to-accent-500 flex items-center justify-center text-white shadow-lg transform group-hover:rotate-6 transition-transform duration-300">
+                    <i class="fa-solid font-bold text-2xl">∑</i>
+                </div>
+                <div>
+                    <span class="text-2xl font-black bg-gradient-to-r from-brand-700 via-brand-500 to-accent-500 bg-clip-text text-transparent dark:from-brand-500 dark:to-accent-500">
+                        رياضياتي
+                    </span>
+                    <span class="block text-[10px] font-tajawal text-slate-500 dark:text-slate-400 -mt-1 tracking-wider">منصة الدروس التفاعلية</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#home" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">الرئيسية</a>
+                <a href="#about" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">عن المنصة</a>
+                <a href="#services" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">خدماتنا</a>
+                <a href="#lessons" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">الدروس والمعرض</a>
+                <a href="#contact" class="hover:text-brand-600 dark:hover:text-brand-500 transition-colors">تواصل معنا</a>
+            </nav>
+
+            <!-- Actions & Theme Toggle -->
+            <div class="flex items-center gap-4">
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" aria-label="Toggle Theme" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 focus:outline-none">
+                    <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+                </button>
+
+                <!-- CTA Button -->
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-brand-600 to-accent-500 hover:from-brand-700 hover:to-accent-600 text-white font-bold px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>احجز حصة مجانية</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 focus:outline-none">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white dark:bg-darkCard border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3 font-medium">
+            <a href="#home" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-brand-600">الرئيسية</a>
+            <a href="#about" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-brand-600">عن المنصة</a>
+            <a href="#services" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-brand-600">خدماتنا</a>
+            <a href="#lessons" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-brand-600">الدروس والمعرض</a>
+            <a href="#contact" class="block py-2 text-slate-700 dark:text-slate-200 hover:text-brand-600">تواصل معنا</a>
+            <a href="#contact" class="inline-flex w-full justify-center items-center gap-2 bg-brand-600 text-white font-bold py-3 rounded-xl mt-2">
+                <span>احجز حصة تجريبية</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative py-16 md:py-24 math-bg-pattern overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Hero Content -->
+                <div class="text-right space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-50 dark:bg-slate-800 border border-brand-200 dark:border-slate-700 text-brand-600 dark:text-brand-500 font-semibold text-sm">
+                        <span class="flex h-2 w-2 rounded-full bg-accent-500 animate-ping"></span>
+                        <span>انضم لأكثر من +1000 طالب متفوق</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white leading-tight">
+                        تعلم الرياضيات <br>
+                        <span class="bg-gradient-to-r from-brand-600 to-accent-500 bg-clip-text text-transparent">ببساطة ومتعة أونلاين</span>
+                    </h1>
+
+                    <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+                        منصة "رياضياتي" تقدم لك أقوى الشروحات المبسطة للمناهج الدراسية، مراجعات مكثفة، وتطبيقات عملية تجعل الرياضيات مادتك المفضلة والسهلة للوصول إلى الدرجة النهائية.
+                    </p>
+
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#lessons" class="bg-brand-600 hover:bg-brand-700 text-white font-bold text-lg px-8 py-3.5 rounded-xl shadow-lg hover:shadow-brand-500/20 transition-all flex items-center gap-3">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>شاهد درس تجريبي</span>
+                        </a>
+                        <a href="#services" class="border-2 border-slate-300 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 text-slate-700 dark:text-slate-200 font-bold text-lg px-8 py-3.5 rounded-xl transition-all">
+                            استكشف الخدمات
+                        </a>
+                    </div>
+
+                    <!-- Trust Stats -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-slate-200 dark:border-slate-800">
+                        <div>
+                            <h3 class="text-2xl font-black text-brand-600 dark:text-brand-500">+98%</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">نسبة نجاح طلابنا</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-black text-brand-600 dark:text-brand-500">+500</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">ساعة شرح مسجلة</p>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-black text-brand-600 dark:text-brand-500">24/7</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 font-medium">دعم واستفسارات</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic Visual -->
+                <div class="relative flex justify-center">
+                    <div class="w-full max-w-md bg-gradient-to-tr from-brand-600/20 to-accent-500/20 rounded-3xl p-6 backdrop-blur-3xl border border-white/20 dark:border-slate-800 glow-effect">
+                        <div class="bg-white dark:bg-darkCard p-6 rounded-2xl shadow-xl space-y-4">
+                            <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-full bg-brand-100 dark:bg-slate-800 flex items-center justify-center text-brand-600">
+                                        <i class="fa-solid fa-calculator text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-sm">التفاضل والتكامل</h4>
+                                        <p class="text-xs text-slate-400">حصة مباشرة - تفاعلية</p>
+                                    </div>
+                                </div>
+                                <span class="bg-accent-500/10 text-accent-500 text-xs font-bold px-2.5 py-1 rounded-full">متاح الآن</span>
+                            </div>
+
+                            <!-- Interactive Sample Card -->
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl space-y-2">
+                                <div class="flex justify-between text-xs font-bold text-slate-600 dark:text-slate-400">
+                                    <span>مستوى استيعاب الدرس</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-accent-500 h-full w-[95%] rounded-full"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="flex -space-x-2 space-x-reverse">
+                                    <div class="w-8 h-8 rounded-full bg-brand-500 text-white font-bold flex items-center justify-center text-xs border-2 border-white dark:border-darkCard">أ</div>
+                                    <div class="w-8 h-8 rounded-full bg-accent-500 text-white font-bold flex items-center justify-center text-xs border-2 border-white dark:border-darkCard">م</div>
+                                    <div class="w-8 h-8 rounded-full bg-amber-500 text-white font-bold flex items-center justify-center text-xs border-2 border-white dark:border-darkCard">س</div>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-500">+120 طالب ينضمون الآن</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-16 bg-white dark:bg-slate-900/50 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                
+                <div class="relative">
+                    <div class="aspect-video bg-gradient-to-br from-brand-600 to-accent-600 rounded-2xl overflow-hidden shadow-xl p-1">
+                        <div class="w-full h-full bg-slate-100 dark:bg-darkCard rounded-xl p-8 flex flex-col justify-center items-center text-center space-y-4">
+                            <div class="w-20 h-20 rounded-full bg-brand-100 dark:bg-slate-800 text-brand-600 flex items-center justify-center text-3xl font-black shadow-inner">
+                                <i class="fa-solid fa-chalkboard-user"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">الأستاذ / أحمد المحمود</h3>
+                            <p class="text-sm text-brand-600 dark:text-brand-500 font-semibold">خبير تدريس الرياضيات للمراحل الإعدادية والثانوية</p>
+                            <p class="text-xs text-slate-500 leading-relaxed max-w-sm">
+                                خبرة تتجاوز 12 عاماً في شرح المناهج وتسهيل المفاهيم الرياضية الشاقة بطرق حديثة قائمة على الفهم وليس الحفظ.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <span class="text-brand-600 dark:text-brand-500 font-bold text-sm tracking-wider uppercase">عن المنصة والمدرس</span>
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-white">
+                        لماذا تختار منصة <span class="text-brand-600">"رياضياتي"</span>؟
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        نحن نؤمن بأن الرياضيات ليست مجرد أرقام ومعادلات معقدة، بل هي أسلوب تفكير منطقي ممتع. هدفنا إعادة بناء شغف الطالب بالمادة ومساعدته على تجاوز عقدة الخوف من الامتحانات.
+                    </p>
+
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 text-accent-500 flex items-center justify-center flex-shrink-0 text-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200">تبسيط المفاهيم الصعبة</h4>
+                                <p class="text-sm text-slate-500">استخدام الرسوم البيانية والأمثلة الحياتية لتوضيح النظريات.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3">
+                            <div class="mt-1 w-6 h-6 rounded-full bg-accent-500/20 text-accent-500 flex items-center justify-center flex-shrink-0 text-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800 dark:text-slate-200">حل المذكرات والنماذج الوزارية</h4>
+                                <p class="text-sm text-slate-500">تدريب مستمر على نماذج الامتحانات النهائية وطرق الحل السريع.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 math-bg-pattern">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-brand-600 dark:text-brand-500 font-bold text-sm uppercase">ماذا نقدم؟</span>
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white">خدماتنا التعليمية المتكاملة</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">باقة من الخدمات المصممة خصيصاً لضمان تفوق الطالب في كافة المراحل.</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Service 1 -->
+                <div class="bg-white dark:bg-darkCard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-slate-800 text-brand-600 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">حصص أونلاين مباشرة</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+                        بث مباشر تفاعلي يتيح للطالب النقاش والسؤال في نفس اللحظة مع حفظ تسجيل الحصة.
+                    </p>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="bg-white dark:bg-darkCard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-accent-500/10 text-accent-500 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-file-pen"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">اختبارات ودوريات</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+                        امتحانات إلكترونية قصيرة بعد كل درس لقياس مستوى الفهم وتصحيح الأخطاء تلقائياً.
+                    </p>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="bg-white dark:bg-darkCard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-user-check"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">متابعة فردية</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+                        متابعة خاصة للطلاب المقصرين وإرسال تقارير دورية لأولياء الأمور لضمان الالتزام.
+                    </p>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="bg-white dark:bg-darkCard p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                    <div class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">ملخصات ومذكرات PDF</h3>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+                        مذكرات شاملة ومنسقة للتحميل المباشر تحتوي على القوانين وأهم الأسئلة المتوقعة.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lessons & Video Showcase Section -->
+    <section id="lessons" class="py-16 bg-white dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+            
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <span class="text-brand-600 dark:text-brand-500 font-bold text-sm uppercase">معرض الدروس</span>
+                <h2 class="text-3xl font-black text-slate-900 dark:text-white">جرب طريقة الشرح بنفسك</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm">إليك فيديو تجريبي يعرض أسلوبنا في تبسيط المواد والربط بين الرياضيات والفيزياء.</p>
+            </div>
+
+            <!-- Featured Embedded Video Container -->
+            <div class="max-w-4xl mx-auto bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-700/50 glow-effect">
+                <div class="relative w-full aspect-video">
+                    <!-- Youtube Embedded Video -->
+                    <iframe 
+                        class="w-full h-full border-0" 
+                        src="https://youtu.be/icvFeP4T2lo?si=J3fxx2e8TjCjhKko" 
+                        title="صفحة تحريبية لعرض الفيديو " 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                
+                <div class="p-6 bg-slate-900 text-white flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-xs font-bold text-accent-500 mb-1">
+                            <i class="fa-solid fa-play-circle"></i>
+                            <span>درس تجريبي ممتاز</span>
+                        </div>
+                        <h3 class="text-xl font-bold">فرق الجهد الكهربي والرياضيات الفيزيائية</h3>
+                        <p class="text-xs text-slate-400 mt-1">شرح مفصل ومبسط لكيفية تطبيق القوانين الرياضية في المسائل الفيزيائية.</p>
+                    </div>
+                    <a href="#contact" class="bg-brand-600 hover:bg-brand-500 text-white font-bold text-sm px-6 py-2.5 rounded-xl transition-colors whitespace-nowrap">
+                        اشترك في الكورس الكامل
+                    </a>
+                </div>
+            </div>
+
+            <!-- More Sample Cards -->
+            <div class="grid md:grid-cols-3 gap-6 pt-6">
+                <!-- Lesson Card 1 -->
+                <div class="bg-slate-50 dark:bg-darkCard rounded-2xl p-4 border border-slate-200 dark:border-slate-800">
+                    <div class="h-40 rounded-xl bg-slate-200 dark:bg-slate-800 relative overflow-hidden flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-square-root-variable text-4xl text-slate-400"></i>
+                        <span class="absolute top-2 right-2 bg-brand-600 text-white text-[10px] font-bold px-2 py-1 rounded">الجبر</span>
+                    </div>
+                    <h4 class="font-bold text-base mb-1">أساسيات المعادلات من الدرجة الثانية</h4>
+                    <p class="text-xs text-slate-500 mb-3">شرح طريقة القانون العام وتحليل المقادير بسهولة.</p>
+                    <span class="text-xs text-brand-600 font-bold">قريباً للجميع</span>
+                </div>
+
+                <!-- Lesson Card 2 -->
+                <div class="bg-slate-50 dark:bg-darkCard rounded-2xl p-4 border border-slate-200 dark:border-slate-800">
+                    <div class="h-40 rounded-xl bg-slate-200 dark:bg-slate-800 relative overflow-hidden flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-draw-polygon text-4xl text-slate-400"></i>
+                        <span class="absolute top-2 right-2 bg-accent-500 text-white text-[10px] font-bold px-2 py-1 rounded">الهندسة</span>
+                    </div>
+                    <h4 class="font-bold text-base mb-1">نظريات المثلثات وتطبيقاتها</h4>
+                    <p class="text-xs text-slate-500 mb-3">كيفية التعامل مع أسئلة الهندسة وحساب المثلثات.</p>
+                    <span class="text-xs text-accent-500 font-bold">متاح للمشتركين</span>
+                </div>
+
+                <!-- Lesson Card 3 -->
+                <div class="bg-slate-50 dark:bg-darkCard rounded-2xl p-4 border border-slate-200 dark:border-slate-800">
+                    <div class="h-40 rounded-xl bg-slate-200 dark:bg-slate-800 relative overflow-hidden flex items-center justify-center mb-3">
+                        <i class="fa-solid fa-chart-line text-4xl text-slate-400"></i>
+                        <span class="absolute top-2 right-2 bg-amber-500 text-white text-[10px] font-bold px-2 py-1 rounded">التفاضل</span>
+                    </div>
+                    <h4 class="font-bold text-base mb-1">مبادئ معدل التغير والإشتقاق</h4>
+                    <p class="text-xs text-slate-500 mb-3">فهم مفهوم المشتقة الأولى وتطبيقها بسهولة.</p>
+                    <span class="text-xs text-amber-500 font-bold">متاح للمشتركين</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section id="contact" class="py-16 math-bg-pattern">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-darkCard rounded-3xl p-8 md:p-10 border border-slate-200 dark:border-slate-800 shadow-xl space-y-8">
+                
+                <div class="text-center space-y-2">
+                    <h2 class="text-3xl font-black text-slate-900 dark:text-white">احجز حصتك أو استفسر الآن</h2>
+                    <p class="text-slate-500 text-sm">قم بتعبئة البيانات وسنقوم بالتواصل معك عبر الواتساب فوراً</p>
+                </div>
+
+                <form id="contactForm" class="space-y-4" onsubmit="event.preventDefault(); showSuccessMessage();">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">اسم الطالب</label>
+                            <input type="text" required placeholder="أدخل الاسم الكامل" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-colors text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">رقم الواتساب</label>
+                            <input type="tel" required placeholder="010XXXXXXXX" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-colors text-sm">
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">الصف الدراسي</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-colors text-sm">
+                                <option>المرحلة الإعدادية</option>
+                                <option>الصف الأول الثانوي</option>
+                                <option>الصف الثاني الثانوي</option>
+                                <option>الصف الثالث الثانوي (ثانوية عامة)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">نوع الطلب</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-colors text-sm">
+                                <option>حجز حصة تجريبية مجانية</option>
+                                <option>الاشتراك في المجموعات الأونلاين</option>
+                                <option>استفسار عن الأسعار والأوقات</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold mb-2 text-slate-700 dark:text-slate-300">ملاحظات أو أسئلة إضافية</label>
+                        <textarea rows="3" placeholder="اكتب سؤالك هنا..." class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-800 dark:text-slate-100 focus:outline-none focus:border-brand-500 transition-colors text-sm"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-brand-600 to-accent-500 text-white font-bold rounded-xl shadow-lg hover:shadow-brand-500/20 transition-all flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        <span>إرسال الطلب</span>
+                    </button>
+                </form>
+
+                <!-- Feedback Alert Container -->
+                <div id="formSuccessAlert" class="hidden p-4 rounded-xl bg-accent-500/20 border border-accent-500 text-accent-600 dark:text-accent-400 text-center font-bold text-sm">
+                    ✨ تم إرسال طلبك بنجاح! سيتم التواصل معك عبر الواتساب في أقرب وقت.
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 py-10 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold">∑</div>
+                <span class="font-black text-xl text-slate-800 dark:text-white">رياضياتي</span>
+            </div>
+
+            <p class="text-xs text-slate-500">
+                جميع الحقوق محفوظة © <span id="year"></span> - منصة رياضياتي للتعليم الذكي.
+            </p>
+
+            <div class="flex items-center gap-4 text-slate-500 text-lg">
+                <a href="#" class="hover:text-brand-600 transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="hover:text-brand-600 transition-colors"><i class="fa-brands fa-youtube"></i></a>
+                <a href="#" class="hover:text-brand-600 transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-brand-600 transition-colors"><i class="fa-brands fa-telegram"></i></a>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Interactivity Script -->
+    <script>
+        // Automatic Year Update
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Dark / Light Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeIcon = document.getElementById('themeIcon');
+        const htmlElement = document.documentElement;
+
+        // Check user preferences or default to light
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+            htmlElement.classList.remove('dark');
+            themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            }
+        });
+
+        // Mobile Menu Toggle Logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Form Success Handler (Without alert)
+        function showSuccessMessage() {
+            const alertBox = document.getElementById('formSuccessAlert');
+            alertBox.classList.remove('hidden');
+            document.getElementById('contactForm').reset();
+            setTimeout(() => {
+                alertBox.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
